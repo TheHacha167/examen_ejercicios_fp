@@ -8,57 +8,57 @@ y sustituya en ella la vocal más frecuente en ella por la menos frecuente en el
 #include <string.h>
 #include <ctype.h>
 
-#define MAX_LENGTH 100
+#define MAX_longitud 100
 
-int get_frequency(char *str, char c)
+int obtener_frecuencia(char *str, char c)
 {
-    int count = 0;
+    int cuenta = 0;
     int len = strlen(str);
     for (int i = 0; i < len; i++)
     {
         if (tolower(str[i]) == tolower(c))
         {
-            count++;
+            cuenta++;
         }
     }
-    return count;
+    return cuenta;
 }
 
-char get_most_frequent_vowel(char *str)
+char vocal_mas_comun(char *str)
 {
-    char vowels[] = {'a', 'e', 'i', 'o', 'u'};
+    char vocales[] = {'a', 'e', 'i', 'o', 'u'};
     int len = strlen(str);
-    int frequency[5] = {0};
+    int frecuencia[5] = {0};
     int max_index = 0;
     for (int i = 0; i < 5; i++)
     {
-        frequency[i] = get_frequency(str, vowels[i]);
-        if (frequency[i] > frequency[max_index])
+        frecuencia[i] = obtener_frecuencia(str, vocales[i]);
+        if (frecuencia[i] > frecuencia[max_index])
         {
             max_index = i;
         }
     }
-    return vowels[max_index];
+    return vocales[max_index];
 }
 
-char get_least_frequent_vowel(char *str)
+char get_vocal_menos_frecuente(char *str)
 {
-    char vowels[] = {'a', 'e', 'i', 'o', 'u'};
+    char vocales[] = {'a', 'e', 'i', 'o', 'u'};
     int len = strlen(str);
-    int frequency[5] = {0};
+    int frecuencia[5] = {0};
     int min_index = 0;
     for (int i = 0; i < 5; i++)
     {
-        frequency[i] = get_frequency(str, vowels[i]);
-        if (frequency[i] < frequency[min_index])
+        frecuencia[i] = obtener_frecuencia(str, vocales[i]);
+        if (frecuencia[i] < frecuencia[min_index])
         {
             min_index = i;
         }
     }
-    return vowels[min_index];
+    return vocales[min_index];
 }
 
-void replace_vowel(char *str, char old_vowel, char new_vowel)
+void reemplazar_vocal(char *str, char old_vowel, char new_vowel)
 {
     int len = strlen(str);
     for (int i = 0; i < len; i++)
@@ -72,15 +72,15 @@ void replace_vowel(char *str, char old_vowel, char new_vowel)
 
 int main()
 {
-    char str[MAX_LENGTH];
-    printf("Enter a string: ");
-    fgets(str, MAX_LENGTH, stdin);
+    char str[MAX_longitud];
+    printf("introduce una frase: ");
+    fgets(str, MAX_longitud, stdin);
 
-    printf("Original string: %s", str);
-    char most_frequent_vowel = get_most_frequent_vowel(str);
-    char least_frequent_vowel = get_least_frequent_vowel(str);
-    replace_vowel(str, most_frequent_vowel, least_frequent_vowel);
-    printf("String with vowels replaced: %s", str);
+    printf("la original es: %s", str);
+    char vocal_mas_frecuente = vocal_mas_comun(str);
+    char vocal_menos_frecuente = get_vocal_menos_frecuente(str);
+    replace_vowel(str, vocal_mas_frecuente, vocal_menos_frecuente);
+    printf("con las vocales cambiadas: %s", str);
 
     return 0;
 }
