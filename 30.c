@@ -9,3 +9,40 @@ Imprimir el primer carácter de cada palabra que exista en una cadena de caracte
 
 
 */
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_LENGTH 100
+
+int main() {
+  char str[MAX_LENGTH];
+  int i, length, valid = 1;
+
+  printf("Ingrese la cadena: ");
+  fgets(str, MAX_LENGTH, stdin);
+  length = strlen(str);
+
+  // Verificar si la cadena contiene únicamente letras, espacios y signos de puntuación
+  for (i = 0; i < length; i++) {
+    if (!isalpha(str[i]) && !isspace(str[i]) && str[i] != ',' && str[i] != ';' && str[i] != '.' && str[i] != ':') {
+      valid = 0;
+      break;
+    }
+  }
+
+  if (!valid) {
+    printf("Error: la cadena contiene caracteres no válidos\n");
+    return 1;
+  }
+
+  printf("Los primeros caracteres de cada palabra son: ");
+  for (i = 0; i < length; i++) {
+    if (isalpha(str[i]) && (i == 0 || isspace(str[i - 1]))) {
+      printf("%c ", str[i]);
+    }
+  }
+  printf("\n");
+
+  return 0;
+}
